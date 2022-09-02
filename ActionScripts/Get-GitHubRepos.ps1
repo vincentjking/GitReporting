@@ -1,4 +1,5 @@
 . "$PSScriptRoot\..\Config\Config.ps1"
+. "$PSScriptRoot\..\Config\Token.ps1"
 
 function Get-GitHubRepos
 {
@@ -7,11 +8,11 @@ function Get-GitHubRepos
         [string] $repoURL
     )
 
-    $token = $config['token']
+    #$token = $config['token']
     $PAT = [System.Convert]::ToBase64String([System.Text.Encoding]::ASCII.GetBytes(":$($token)"))
 
     $allRepos = @()
-    $page=0
+    $page=2 # should be 0!
     do 
     {    
         $page += 1    

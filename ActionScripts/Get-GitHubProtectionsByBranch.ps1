@@ -1,5 +1,5 @@
 . "$PSScriptRoot\..\Config\Config.ps1"
-
+. "$PSScriptRoot\..\Config\Token.ps1"
 function Get-GitHubProtectionsByBranch
 {
     param (
@@ -11,8 +11,6 @@ function Get-GitHubProtectionsByBranch
     $headers = @{authorization = "Basic $token"}
 
     Write-Host $branchProtectionURL
-
-    
 
     #$respBranchProtection = (Invoke-WebRequest -Uri $branchProtectionURL -Header $headers -Method GET -ContentType "application/json").content | ConvertFrom-Json
     #$respBranchProtection = Invoke-WebRequest -Uri $branchProtectionURL -Header $headers -Method GET -ContentType "application/json"

@@ -13,15 +13,19 @@ function Invoke-GatherOrgBasedGitHubData {
     Write-Host $repoURL
 
     $respRepos = Get-GitHubRepos $repoURL
-<#
+$allUnprotectedBrances = @()
     foreach($repo in $respRepos)
     {
-        $respRepoURL = $baseURL + "repos/" + $org + $repo.name
-        $branchesURL = $baseURL + "repos/" + $org + $repo.name + "/branches"
+        $respRepoURL = $baseURL + "repos/" + $org + "/" + $repo.name
+        $branchesURL = $baseURL + "repos/" + $org + "/" + $repo.name + "/branches"
+        $unprotectedBranchesURL = $baseURL + "repos/" + $org + "/" + $repo.name + "/branches?protected=false"
         Write-Host $respRepoURL
         Write-Host $branchesURL
-        $respBranches = Get-GitHubBranchesByRepo $branchesURL
-
+        Write-Host $unprotectedBranchesURL
+        $respBranches = Get-GitHubBranchesByRepo $unprotectedBranchesURL
+        $allUnprotectedBrances += $respBranches
+        Write-Host $respBranches
+<#
         foreach($branch in $respBranches)
         {
             $branchProtectionURL = $baseURL + "repos/" + $org + $repo.name + "/branches/" + $branch.name + "/protection"
@@ -29,11 +33,12 @@ function Invoke-GatherOrgBasedGitHubData {
             #$respBranchProtection = Get-GitHubProtectionsByBranch $branchProtectionURL
             
         }
+ #>
     }
 
-    return $respBranches
-#>
-return $respRepos
+    return $allUnprotectedBrances
+
+#return $respRepos
 }
 
 <# Testing #>
