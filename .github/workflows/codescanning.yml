@@ -1,0 +1,9 @@
+name: ProjectCodeScanning
+on: [push]
+jobs:
+  codescan:
+    name: Scan the repo code
+    runs-on: windows-latest
+    steps:
+      - name: checkout the code
+        uses: actions/checkout@v2
